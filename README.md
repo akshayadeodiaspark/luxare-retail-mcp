@@ -79,6 +79,34 @@ Add to your MCP config file (e.g. `claude_desktop_config.json`):
 
 Restart Claude Desktop / Claude Code after editing the config.
 
+## Running as a remote HTTP server
+
+The tools are defined once in `src/server.ts` and exposed over two
+entrypoints:
+
+- `src/index.ts` (`npm start`) — stdio transport, for a local MCP client
+  (Claude Desktop/Code) that spawns the process directly, as above.
+- `src/http.ts` (`npm run start:http`) — MCP Streamable HTTP transport,
+  for a remote client connecting over the network. Listens on `PORT`
+  (defaults to `3000`), exposes a health check at `/` and the MCP
+  endpoint at `POST /mcp`.
+
+### Deploying to Render
+
+This repo includes a `render.yaml` Blueprint that deploys the HTTP
+entrypoint as a Node web service:
+
+- Build: `npm install && npm run build`
+- Start: `npm run start:http`
+- Health check: `/`
+- `DIASPARK_BASE_URL` defaults to the demo environment; override it in
+  the Render dashboard for a different environment.
+
+In the Render dashboard, use **New > Blueprint** and point it at this
+repo/branch — Render will read `render.yaml` and provision the service.
+Once deployed, remote MCP clients connect to
+`https://<your-service>.onrender.com/mcp`.
+
 ## Adding more endpoints
 
 To add another Diaspark API as a tool:
