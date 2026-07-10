@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: luxare-retail-mcp
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:http
+    healthCheckPath: /
+    envVars:
+      - key: DIASPARK_BASE_URL
+        value: https://diasparkdemo.rw.diasparkonline.com
