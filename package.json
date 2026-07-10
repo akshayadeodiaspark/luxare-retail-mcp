@@ -1,0 +1,26 @@
+{
+  "name": "luxare-retail-mcp",
+  "version": "1.0.0",
+  "description": "MCP server exposing Diaspark (RW Diaspark Online) terminal/POS/inventory APIs as tools",
+  "type": "module",
+  "main": "build/index.js",
+  "bin": {
+    "luxare-retail-mcp": "build/index.js"
+  },
+  "scripts": {
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "start": "node build/index.js",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9",
+    "typescript": "^5.5.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
